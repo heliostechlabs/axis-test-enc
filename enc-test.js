@@ -71,8 +71,8 @@ const signOptions = {
     keyid: '123456', // Just a sample key ID, you may customize as needed
 };
 
-// Manually creating the header with the desired length
-const header = Buffer.from(JSON.stringify(signOptions.header)).toString('base64').padStart(20);
+// Manually creating the header with the desired length by padding it with spaces
+const header = Buffer.from(JSON.stringify(signOptions.header)).toString('base64').padEnd(20);
 
 // Encoding function
 function encodeData(data, privateKey, signOptions, header) {
