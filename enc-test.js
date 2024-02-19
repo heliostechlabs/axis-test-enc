@@ -75,12 +75,26 @@ const signOptions = {
 const header = Buffer.from(JSON.stringify(signOptions.header)).toString('base64').padEnd(20);
 
 // Encoding function
-function encodeData(data, privateKey, signOptions, header) {
-    const token = jwt.sign(data, privateKey, signOptions);
-    const encodedToken = `${header}.${token}`;
+function encodeData(data, publicKey, privateKey, signOptions, header) {
+    const encryptedData = jwt.sign(data, privateKey, {
+        ...signOptions,
+        header: {
+            ...signOptions.header,
+            alg: 'RS256', // Ensure it uses RS256 algorithm for signing
+            enc: 'RS256' // Use RSA encryption
+        }
+    });
+    const signedToken = jwt.sign({ data: encryptedData }, privateKey, {
+        ...signOptions,
+        header: {
+            ...signOptions.header,
+            alg: 'RS256' // Ensure it uses RS256 algorithm for signing
+        }
+    });
+    const encodedToken = `${header}.${signedToken}`;
     return encodedToken;
 }
 
 // Encode the data
-const encodedData = encodeData(data, privateKey, signOptions, header);
+const encodedData = encodeData(data, publicKey, privateKey, signOptions, header);
 console.log(encodedData);
