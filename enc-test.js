@@ -75,7 +75,8 @@ const signOptions = {
 const header = Buffer.from(JSON.stringify(signOptions.header)).toString('base64').padEnd(20);
 
 // Encoding function
-function encodeData(data, publicKey, privateKey, signOptions, header) {
+
+function encodeData(data, publicKey, privateKey, signOptions) {
     const encryptedData = jwt.sign(data, privateKey, {
         ...signOptions,
         header: {
@@ -91,9 +92,9 @@ function encodeData(data, publicKey, privateKey, signOptions, header) {
             ...signOptions.header
         }
     });
-    const encodedToken = `${header}.${signedToken}`;
-    return encodedToken;
+    return signedToken;
 }
+
 
 
 // Encode the data
