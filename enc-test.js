@@ -63,7 +63,7 @@ const data = {
 
 // Encoding options
 const signOptions = {
-    algorithm: 'RS256',
+    algorithm: 'RS256', // Changed from HS256 to RS256
     header: {
         typ: 'JWT'
     },
