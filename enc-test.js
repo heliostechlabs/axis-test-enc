@@ -68,16 +68,10 @@ const signOptions = {
         typ: 'JWT'
     },
     expiresIn: '1h',
-    keyid: '123456', // Just a sample key ID, you may customize as needed
 };
 
-// Manually creating the header with the desired length by padding it with spaces
-const header = Buffer.from(JSON.stringify(signOptions.header)).toString('base64').padEnd(20);
-
 // Encoding function
-
-function encodeData(data, publicKey, privateKey, signOptions) {
-    const header = Buffer.from(JSON.stringify({ alg: 'RS256', typ: 'JWT' })).toString('base64');
+function encodeData(data, privateKey, signOptions) {
     const signedToken = jwt.sign(data, privateKey, {
         ...signOptions,
         algorithm: 'RS256'
@@ -86,7 +80,6 @@ function encodeData(data, publicKey, privateKey, signOptions) {
     return `${header}.${base64EncodedData}.${signedToken}`;
 }
 
-
 // Encode the data
-const encodedData = encodeData(data, publicKey, privateKey, signOptions, header);
+const encodedData = encodeData(data, privateKey, signOptions);
 console.log(encodedData);
