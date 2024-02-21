@@ -1,6 +1,3 @@
-Apologies for the oversight. It seems that the `header` variable is not defined in the `encodeData` function. Let's adjust the code to include the header properly:
-
-```javascript
 const jwt = require('jsonwebtoken');
 
 // Hardcoded public and private keys
@@ -40,9 +37,7 @@ EmwQMUMsGab58UcxLFuAHM6rwaFfCcVRaRQNhSZSlVr12etNdZDFpD0410qXp7Bv
 hSTBoHwtHmykrTxvF3gsb6qCY4n+5IpNgco9TegKhXrjDw/9GwaUkYP8eQnbu98w
 zj018RlpBeEHFxpNtpWtC9PL4dnnmMkISDnn46PhAQKBgQDnGz6e8P4/5raRUObr
 Cj5xrRvfHbjGH8Mz4tphKqSElHuMLvw8rTl3boLpB3rvW4nHO+dHnqq6gk9qc558
-+ksA1
-
-TfCOTqVnOBFPcMaVvjYUAi41xFfydrEWLvohAEI5obEBu1PxioZy0lNFNI5
++ksA1TfCOTqVnOBFPcMaVvjYUAi41xFfydrEWLvohAEI5obEBu1PxioZy0lNFNI5
 pf75hPS64jRrdhZ5ltfpllmoSwKBgQDMB9RIl2ZsCX7En8tfwlgQ+/04bvJrOTPl
 JW23hfs3/sNDPQ+GCoBLqXnfewLFEqIvhutB+cEvPXdLwOalkima/Qi1mPIrlQca
 GkYV9z9NAmgc0XU8bWgVAKXJ4ZwBECbMHB/rJvLPvV/QKmZCepSKlgN9OWuJCDpO
@@ -89,6 +84,3 @@ function encodeData(data, privateKey, signOptions) {
 // Encode the data
 const encodedData = encodeData(data, privateKey, signOptions);
 console.log(encodedData);
-```
-
-This should resolve the issue, now the `header` variable is defined within the `encodeData` function.
