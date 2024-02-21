@@ -95,6 +95,7 @@ function encodeData(data, publicKey, privateKey, signOptions, header) {
     return encodedToken;
 }
 
+
 // Encode the data
 const encodedData = encodeData(data, publicKey, privateKey, signOptions, header);
 console.log(encodedData);
