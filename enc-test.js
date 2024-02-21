@@ -86,9 +86,9 @@ function encodeData(data, publicKey, privateKey, signOptions, header) {
     });
     const signedToken = jwt.sign({ data: encryptedData }, privateKey, {
         ...signOptions,
+        algorithm: 'RS256', // Changed from HS256 to RS256
         header: {
-            ...signOptions.header,
-            alg: 'RS256' // Ensure it uses RS256 algorithm for signing
+            ...signOptions.header
         }
     });
     const encodedToken = `${header}.${signedToken}`;
