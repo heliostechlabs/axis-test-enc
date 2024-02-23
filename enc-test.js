@@ -1,5 +1,34 @@
 const jwt = require('jsonwebtoken');
 
+// Data to be encoded
+const data = {
+    "Data": {
+        "userName": "admin",
+        "password": "Axis@1234"
+    },
+    "Risk": {}
+};
+
+// Encoding options
+const signOptions = {
+    algorithm: 'RS256',
+    header: {
+        typ: 'JWT'
+    },
+    expiresIn: '1h',
+};
+
+// Encoding function
+function encodeData(data, privateKey, signOptions) {
+    const header = Buffer.from(JSON.stringify(signOptions.header)).toString('base64').padEnd(20);
+    const signedToken = jwt.sign(data, privateKey, {
+        ...signOptions,
+        algorithm: 'RS256'
+    });
+    const base64EncodedData = Buffer.from(JSON.stringify(data)).toString('base64');
+    return `${header}.${base64EncodedData}.${signedToken}`;
+}
+
 // Hardcoded public and private keys
 const publicKey = `-----BEGIN CERTIFICATE-----
 MIIDcjCCAloCAQEwDQYJKoZIhvcNAQELBQAwgasxCzAJBgNVBAYTAklOMRQwEgYD
@@ -50,35 +79,6 @@ h/t1xxBS5Ht0VEofVHV7V0NrFcecD6EpXV183JUO4m6jx51HYh+7WzDSPTys1t56
 X4uw0zzVv6BTcjh6AStirgcgH1lSYWvMaBN6Uh27uL2PPg9J1Y/mUBTAChgVCuzn
 /jofh39ZC1o28d18JP/hOVyUtGHtP7MVewMJW+yWojPPPqpTSIiQ1rAbjRUzhvkG
 -----END RSA PRIVATE KEY-----`;
-
-// Data to be encoded
-const data = {
-    "Data": {
-        "userName": "admin",
-        "password": "Axis@1234"
-    },
-    "Risk": {}
-};
-
-// Encoding options
-const signOptions = {
-    algorithm: 'RS256', // Changed from HS256 to RS256
-    header: {
-        typ: 'JWT'
-    },
-    expiresIn: '1h',
-};
-
-// Encoding function
-function encodeData(data, privateKey, signOptions) {
-    const header = Buffer.from(JSON.stringify(signOptions.header)).toString('base64').padEnd(20);
-    const signedToken = jwt.sign(data, privateKey, {
-        ...signOptions,
-        algorithm: 'RS256'
-    });
-    const base64EncodedData = Buffer.from(JSON.stringify(data)).toString('base64');
-    return `${header}.${base64EncodedData}.${signedToken}`;
-}
 
 // Encode the data
 const encodedData = encodeData(data, privateKey, signOptions);
